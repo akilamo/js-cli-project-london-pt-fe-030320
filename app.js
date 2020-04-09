@@ -13,7 +13,7 @@ function displayPostsSummary(posts) {
 }
 
 function displayPostDetails(post) {
-  console.log(`-- POST NUMBER ${post.id} `);
+  console.log(chalk.hex("93ecb7")(`-- POST NUMBER ${post.id} `));
   console.log(` Title: ${post.title} `);
   console.log(` Category: ${post.category} `);
   console.log(` Upvotes: ${post.upvotes} `);
@@ -56,6 +56,93 @@ function chooseAPost(posts) {
     return chooseAPost(posts);
   }
 }
+
+
+function browseCat() {
+  console.log('');
+  console.log(chalk.hex("#93ecb7")("-----------------"));
+  console.log(chalk.hex("#93ecb7").bold("---CATEGORIES---"));
+  console.log(chalk.hex("#93ecb7")("-----------------"));
+  const posts = API.read("posts");
+
+  // get unique category values to new array
+  let newArray = [];
+  posts.forEach((post) => newArray.push(post.category));
+
+  let filteredArray = newArray.filter(
+    (el, index) => newArray.indexOf(el) === index
+  );
+
+  // ask user to key in category
+  const chosenCategory = readlineSync.keyInSelect(
+    filteredArray,
+    chalk.hex("#b2a1e1")("Select a category: "),
+    { cancel: "Exit" }
+  );
+
+  // match chosen category to post category value
+  for (const post of posts) {
+    if (chosenCategory === 0 && filteredArray[0] === post.category) {
+      displayPostDetails(post);
+      nextChoice();
+    } else if (chosenCategory === 1 && filteredArray[1] === post.category) {
+      displayPostDetails(post);
+      nextChoice();
+    } else if (chosenCategory === 2 && filteredArray[2] === post.category) {
+      displayPostDetails(post);
+      nextChoice();
+    } else if (chosenCategory === 3 && filteredArray[3] === post.category) {
+      displayPostDetails(post);
+      nextChoice();
+    } else if (chosenCategory === 4 && filteredArray[4] === post.category) {
+      displayPostDetails(post);
+      nextChoice();
+    } else {
+      nextChoice;
+    }
+  }
+}
+
+
+
+function mostPopular() {
+  const posts = API.read("posts");
+  // get upvotes values from each post and store them in new array
+  let arrayUpvotes = [];
+  posts.forEach((post) => arrayUpvotes.push(post.upvotes));
+ 
+  //same as above with downvotes
+  let arrayDownvotes = [];
+  posts.forEach((post) => arrayDownvotes.push(post.downvotes));
+
+  //store sum of values in new array and calculate % of upvotes
+  let arrayTotalVotes =[];
+  let arrayPercentageUpvotes =[];
+
+  for (let i=0; i<arrayUpvotes.length;i++) {
+    let totalVotes = arrayUpvotes[i]+arrayDownvotes[i];
+    arrayTotalVotes.push(totalVotes);
+    arrayPercentageUpvotes.push(arrayUpvotes[i]/arrayTotalVotes[i]*100);
+    }
+   
+    //find index of max % upvotes value
+   let maxPercentage = arrayPercentageUpvotes.indexOf(Math.max(...arrayPercentageUpvotes));
+ 
+   //match max value with id of post to retrieve details
+    for (const post of posts) {
+    // if (maxPercentage === post.upvotes) {
+      if (maxPercentage === post.id - 1) {
+      console.log('');
+      console.log(chalk.hex('#93ecb7')("----------------------------------"));
+      console.log(chalk.hex('#93ecb7')("---------MOST POPULAR POST--------"));
+      console.log(chalk.hex('#93ecb7')("----------------------------------"));
+      console.log("");
+      displayPostDetails(post);
+    }
+  }
+nextChoice();
+}
+
 
 function vote() {
   console.log(chalk.hex('#93ecb7')("-----------------"));
@@ -128,7 +215,6 @@ function leaveComment() {
 }
 
 
-
 function deleteComment() {
   console.log(chalk.hex('#93ecb7')("--------------------"));
   console.log(chalk.hex('#93ecb7').bold("--DELETE A COMMENT--"));
@@ -163,7 +249,6 @@ function deleteComment() {
 
   nextChoice();
 }
-
 
 
 function createPost() {
@@ -231,71 +316,6 @@ function random() {
   nextChoice();
 }
 
-function mostPopular() {
-  const posts = API.read("posts");
-  // get upvotes values from each post and store them in new array
-  let newArray = [];
-  posts.forEach((post) => newArray.push(post.upvotes));
-  let maxUpvotes = Math.max(...newArray);
-
-  // match new array values with post details
-  for (const post of posts) {
-    if (maxUpvotes === post.upvotes) {
-      console.log('');
-      console.log(chalk.hex('#93ecb7')("----------------------------------"));
-      console.log(chalk.hex('#93ecb7')("---------MOST POPULAR POST--------"));
-      console.log(chalk.hex('#93ecb7')("----------------------------------"));
-      console.log("");
-      displayPostDetails(post);
-    }
-  }
-nextChoice();
-}
-
-function browseCat() {
-  console.log('');
-  console.log(chalk.hex("#93ecb7")("-----------------"));
-  console.log(chalk.hex("#93ecb7").bold("---CATEGORIES---"));
-  console.log(chalk.hex("#93ecb7")("-----------------"));
-  const posts = API.read("posts");
-
-  // get unique category values to new array
-  let newArray = [];
-  posts.forEach((post) => newArray.push(post.category));
-
-  let filteredArray = newArray.filter(
-    (el, index) => newArray.indexOf(el) === index
-  );
-
-  // ask user to key in category
-  const chosenCategory = readlineSync.keyInSelect(
-    filteredArray,
-    chalk.hex("#b2a1e1")("Select a category: "),
-    { cancel: "Exit" }
-  );
-
-  // match chosen category to post category value
-  for (const post of posts) {
-    if (chosenCategory === 0 && filteredArray[0] === post.category) {
-      displayPostDetails(post);
-      nextChoice();
-    } else if (chosenCategory === 1 && filteredArray[1] === post.category) {
-      displayPostDetails(post);
-      nextChoice();
-    } else if (chosenCategory === 2 && filteredArray[2] === post.category) {
-      displayPostDetails(post);
-      nextChoice();
-    } else if (chosenCategory === 3 && filteredArray[3] === post.category) {
-      displayPostDetails(post);
-      nextChoice();
-    } else if (chosenCategory === 4 && filteredArray[4] === post.category) {
-      displayPostDetails(post);
-      nextChoice();
-    } else {
-      nextChoice;
-    }
-  }
-}
 
 // Ask user next move - stay in app or exit //
 function nextChoice() {
