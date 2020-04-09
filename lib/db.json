@@ -1,22 +1,85 @@
 {
-  "books": [
+  "posts": [
     {
-      "reviews": [
-        { "content": "i liked it", "rating": 4 },
-        { "rating": "3", "content": "great" },
-        { "rating": "1", "content": "hated it" },
-        { "rating": "10", "content": "srofgu" }
-      ],
       "id": 1,
-      "title": "Good Book about Javascript"
+      "title": "Funniest cat video ever",
+      "upvotes": 500,
+      "downvotes": 160,
+      "comments": ["Haha", "My cat does it better"],
+      "category": "Entertainment"
     },
     {
-      "title": "Book about Ruby",
-      "reviews": [{ "rating": "3", "content": "hello" }],
-      "id": 2
+      "id": 2,
+      "title": "How to decide faster",
+      "upvotes": 125,
+      "downvotes": 78,
+      "comments": ["Top advice", "Makes my life much easier"],
+      "category": "Business"
     },
-    { "title": "Book about Ruby", "reviews": [], "id": 4 },
-    { "title": "Book about Ruby", "reviews": [], "id": 5 },
-    { "title": "Book about Ruby", "reviews": [], "id": 6 }
+    {
+      "id": 3,
+      "title": "Top 10 most overrated TV series",
+      "upvotes": 501,
+      "downvotes": 357,
+      "comments": [
+        "Are you serious?",
+        "Couldn't agree more",
+        "So overrated",
+        "love it"
+      ],
+      "category": "Entertainment"
+    },
+    {
+      "id": 4,
+      "title": "Free JS tutorials",
+      "upvotes": 836,
+      "downvotes": 13,
+      "comments": ["Amazing", "Fab", "Exactly what I needed"],
+      "category": "Tech"
+    },
+    {
+      "id": 5,
+      "title": "A generator for section separators with only css",
+      "upvotes": 504,
+      "downvotes": 30,
+      "comments": [
+        "Amazing",
+        "Fab",
+        "Well done",
+        "I'd use it to death",
+        "Wow",
+        "clap clap clap!"
+      ],
+      "category": "Tech"
+    },
+    {
+      "id": 6,
+      "title": "Check out this meme generator",
+      "upvotes": 667,
+      "downvotes": 14,
+      "comments": [
+        "Great work",
+        "Great idea",
+        "UI can be improved!",
+        "Nice job"
+      ],
+      "category": "Entertainment"
+    },
+    {
+      "id": 7,
+      "title": "Easy and healthy recipes",
+      "upvotes": 379,
+      "downvotes": 68,
+      "comments": ["Yummy", "Thanks for sharing", "No gluten free options?"],
+      "category": "Cooking"
+    },
+    {
+      "title": "Long list of unpopular opinions",
+      "upvotes": 448,
+      "downvotes": 537,
+      "comments": ["AMEN TO THAT"],
+      "category": "Lifestyle",
+      "id": 8
+    }
   ]
 }
